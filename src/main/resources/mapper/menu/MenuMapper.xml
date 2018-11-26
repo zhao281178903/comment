@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaoguowen.comment.mapper.MenuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zhaoguowen.comment.entity.Menu">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="order_num" property="orderNum"/>
+        <collection property="actionList" ofType="com.zhaoguowen.comment.entity.Action" columnPrefix="action_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="url" property="url"/>
+            <result column="menu_id" property="menuId"/>
+            <result column="method" property="method"/>
+        </collection>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, url, parent_id, order_num
+    </sql>
+
+
+    <select id="selectMenuWithAction" resultMap="BaseResultMap">
+        SELECT
+        m.id, m.name, m.url, m.parent_id, m.order_num,
+        a.id action_id, a.name action_name, a.url action_url, a.menu_id action_menu_id, a.method action_method
+        FROM sys_menu m
+        LEFT JOIN sys_action a
+        ON m.id=a.menu_id
+    </select>
+
+
+</mapper>

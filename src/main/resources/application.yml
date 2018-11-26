@@ -1,0 +1,30 @@
+# DataSource Config
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/comment?characterEncoding=UTF-8
+    username: root
+    password: 123456
+  jackson:
+    serialization:
+     WRITE_DATES_AS_TIMESTAMPS: true
+  thymeleaf:
+    cache: false
+mybatis-plus:
+  mapper-locations: classpath*:mapper/**/*.xml
+  type-aliases-package: com.zhaoguowen.comment.entity
+  typeEnumsPackage: com.zhaoguowen.comment.enums
+  global-config:
+      db-config:
+        logic-not-delete-value: 0  #逻辑未删除值默认为0
+        logic-delete-value: 1 #逻辑删除值默认为0
+# 日志相关
+logging:
+  level:
+     com.zhaoguowen.comment.mapper : DEBUG
+     web: DEBUG
+     org.springframework.security.core.session : TRACE
+server:
+  servlet:
+    session:
+      timeout: 120s
